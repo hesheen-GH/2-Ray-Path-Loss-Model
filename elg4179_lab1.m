@@ -4,38 +4,46 @@ clc;
 %Part 1
 R = 1:1:10^4;
 figure(1)
-semilogx(R,10*log10(compute_path_loss(1*10^9, 2, 2, 16, 'v', 1:1:10^4,'2-ray')))
+semilogx(R,-10*log10(compute_path_loss(3*10^8, 2, 2, 16, 'v', 1:1:10^4,'2-ray')))
 grid on
 hold on
-semilogx(R,10*log10(compute_path_loss(1*10^9, 2, 2, 16, 'h', 1:1:10^4,'2-ray')))
+semilogx(R,-10*log10(compute_path_loss(3*10^8, 2, 2, 16, 'h', 1:1:10^4,'2-ray')))
 hold on
-semilogx(R,-10*log10(compute_path_loss(1*10^9, 2, 2, 16, 'v', 1:1:10^4,'freespace')))
+semilogx(R,-10*log10(compute_path_loss(3*10^8, 2, 2, 16, 'v', 1:1:10^4,'freespace')))
 
 %Part 2
 
-Path_Loss_2_ray = []
-Path_Loss_free_space = []
+Pr_2_ray = [];
+Pr_LOS = [];
+Path_Loss_2_ray = [];
+Path_Loss_LOS = [];
+Pt = 100;
+Gt = 1;
+Gr = 1;
 
 rng(1,'twister');
-figure(2)
 a = 100;
 b = 1000;
 r = (b-a).*rand(100,1) + a;
 
-%for i = 1:size(r)
-    %Path_Loss_2_ray[i] = compute_path_loss(1*10^9, 10, 1, 15, 'v', r(i)
+for i = 1:size(r)
+    Path_Loss_2_ray(i) = compute_path_loss(1*10^9, 10, 1, 15, 'v', r(i), '2-ray');
+    Path_Loss_LOS(i) = compute_path_loss(1*10^9, 10, 1, 15, 'v', r(i), 'freespace');
+
+end
     
-    
+Pr_2_ray = Pt*Gt*Gr*(1./Path_Loss_2_ray);
+Pr_LOS = Pt*Gt*Gr*(1./Path_Loss_LOS);
 
-%edges = [100 1000];
-%plot(histogram(r),20);
-%histogram(r,36)
-histogram(r)
+figure(2);
+histogram(Pr_2_ray);
+hold on;
+histogram(Pr_LOS);
 
-Pt = 100
-Gt = 1
-Gr = 1
-
+figure(3)
+cdfplot(Pr_2_ray);
+hold on;
+cdfplot(Pr_LOS);
 
 %figure(2)
 %x = 1:100;
@@ -72,7 +80,7 @@ else
 
     reflection_coeff = (sin(incidence_angle)-z)./(sin(incidence_angle)+z);
     phase_diff = 2*pi*(1/(3*10^8/freq)).*(d1_d2-dD);
-    path_loss = ((abs(1+reflection_coeff.*(dD./(d1_d2)).*exp(1i*phase_diff))).^2).*(1./((4*pi.*R)./(3*10^8/freq))).^2;
+    path_loss = 1./(((abs(1+reflection_coeff.*(dD./(d1_d2)).*exp(1i*phase_diff))).^2).*(1./((4*pi.*R)./(3*10^8/freq))).^2);
     
   
 end 
