@@ -20,11 +20,11 @@ Path_Loss_LOS = [];
 Pt = 100;
 Gt = 1;
 Gr = 1;
-
+N = 100; 
 rng(1,'twister');
 a = 100;
 b = 1000;
-r = (b-a).*rand(100,1) + a;
+r = (b-a).*rand(N,1) + a;
 
 for i = 1:size(r)
     Path_Loss_2_ray(i) = compute_path_loss(1*10^9, 10, 1, 15, 'v', r(i), '2-ray');
@@ -45,10 +45,33 @@ cdfplot(Pr_2_ray);
 hold on;
 cdfplot(Pr_LOS);
 
-%figure(2)
-%x = 1:100;
-%plot(unifpdf(x,100,1000));
-%xlim([50 1100])
+
+%Part 7 
+N = 100000
+a = 0;
+b = 2000;
+x_array = [];
+y_array = [];
+x = 1000.*ones(1,N);
+y = 1000.*ones(1,N);
+
+
+for i = 1:N
+    
+    while((x(i)>950 && x(i)<1050) && (y(i)>950 && y(i)<1050))
+        
+        x(i) = (b-a).*rand(1,1) + a;
+        y(i) = (b-a).*rand(1,1) + a;
+        
+    end 
+       
+    x_array(i) = x(i);
+    y_array(i) = y(i);
+
+end 
+
+figure(4)
+histogram2(x_array, y_array, [40 40]);
 
 
 
