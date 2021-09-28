@@ -45,9 +45,15 @@ classdef Functions_Class
         histogram2(x_array, y_array, [40 40]);
 
         figure;
-        histogram(Pr_2_ray, 'Normalization','probability');
+        h1 = histogram(Pr_2_ray, 'Normalization','probability');
         hold on;
-        histogram(Pr_LOS, 'Normalization','probability');
+        h2 = histogram(Pr_LOS, 'Normalization','probability');
+        morebins(h1);
+        morebins(h1);
+        morebins(h1);
+        morebins(h2);
+        morebins(h2);
+        morebins(h2);
         xlabel('Recieved Power (dBm)');
         ylabel('Probability');
         title('Q7 Empirical PDF for N = ' + string(N));
@@ -81,9 +87,15 @@ classdef Functions_Class
         Pr_2_ray = 10*log10(1000*(Pt*Gt*Gr*(1./Path_Loss_2_ray)));
         Pr_LOS = 10*log10(1000*(Pt*Gt*Gr*(1./Path_Loss_LOS)));
         
-        histogram(Pr_2_ray, 'Normalization','probability');
+        h1 = histogram(Pr_2_ray, 'Normalization','probability');
         hold on;
-        histogram(Pr_LOS, 'Normalization','probability');
+        h2 = histogram(Pr_LOS, 'Normalization','probability');
+        morebins(h1);
+        morebins(h1);
+        morebins(h1);
+        morebins(h2);
+        morebins(h2);
+        morebins(h2);
         xlabel('Recieved Power (dBm)');
         ylabel('Probability');
         str = 'Empirical PDF for N = ' + string(N)+ ' f = ' + (string(f/(10^9))) + ' GHz  Field polarization = ' + string(field_polarization) + ' Rmin = ' + string(a)+ 'm';
