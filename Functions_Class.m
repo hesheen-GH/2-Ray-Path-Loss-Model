@@ -90,7 +90,7 @@ classdef Functions_Class
         title(str); 
         legend('2-ray vertical polar.', 'LOS')
         hold off;
-        saveas(figure1,str+'.jpg');
+        %saveas(figure1,str+'.jpg');
 
         figure2 = figure;
         cdfplot(Pr_2_ray);
@@ -102,7 +102,7 @@ classdef Functions_Class
         title(str);
         legend('2-ray vertical polar.', 'LOS');
         hold off;
-        saveas(figure2,str+'.jpg');
+        %saveas(figure2,str+'.jpg');
         
         end 
 
