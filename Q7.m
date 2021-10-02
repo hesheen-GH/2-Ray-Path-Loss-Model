@@ -1,3 +1,4 @@
+%Part 7 -------------------------------------------------------------------
 clear all;
 clc;
 
@@ -6,7 +7,7 @@ function_obj = Functions_Class;
 function_obj.q7_pdf_cdf(N);
 N = 1000;
 function_obj.q7_pdf_cdf(N);
-N = 10000;
+N = 100000;
 function_obj.q7_pdf_cdf(N);
 
 
